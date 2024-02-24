@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koło</title>
+    <script>
+        function init(){
+var canvas = document.querySelector("#canva");
+var context = canvas.getContext("2d");
+
+context.beginPath();
+context.arc(canvas.width / 2, canvas.height / 2, 150, 0, 360);
+context.fillStyle = 'red';
+context.fill();
+context.strokeStyle = 'black';
+context.stroke();
+context.closePath();
+
+context.beginPath();
+context.arc(250, 180, 25, 0, 360);
+context.fillStyle = 'white';
+context.fill();
+context.closePath();
+
+context.beginPath();
+context.arc(380, 180, 25, 0, 360);
+context.fillStyle = 'white';
+context.fill();
+context.closePath();
+
+context.beginPath();
+context.arc(380, 180, 15, 0, 360);
+context.fillStyle = 'black';
+context.fill();
+context.closePath();
+
+context.beginPath();
+context.arc(250, 180, 15, 0, 360);
+context.fillStyle = 'black';
+context.fill();
+context.closePath();
+
+context.beginPath();
+context.arc(375, 175, 5, 0, 360);
+context.fillStyle = 'white';
+context.fill();
+context.closePath();
+
+context.beginPath();
+context.arc(245, 175, 5, 0, 360);
+context.fillStyle = 'white';
+context.fill();
+context.closePath();
+
+context.beginPath();
+context.moveTo(400, 290);
+context.quadraticCurveTo(320,410,240, 290);
+context.quadraticCurveTo(320,330,400, 290);
+context.fillStyle = "black";
+context.fill();
+context.stroke();
+context.closePath();
+
+context.beginPath();
+context.moveTo(240, 280);
+context.quadraticCurveTo(245, 290,230, 305);
+context.lineWidth = 3;
+context.stroke();
+context.closePath();
+
+context.beginPath();
+context.moveTo(400, 280);
+context.quadraticCurveTo(395, 290,410, 305);
+context.lineWidth = 3;
+context.stroke();
+
+context.fillStyle = 'white';
+context.fillRect(303, 310, 15, 15); 
+context.fillRect(320, 310, 15, 15); 
+context.closePath();
+        }
+    </script>
+</head>
+<body onload="init()">
+    <canvas id="canva" width="640" height="480"></canvas>
+</body>
+</html>

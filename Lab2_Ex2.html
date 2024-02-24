@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lab2_Ex2</title>
+    <style>
+        
+        canvas {
+            background-color: white;
+            display: block;
+        }
+        #canvasholder {
+            border:2px solid black;
+            float: left;
+        }
+    </style>
+    <script>
+        var canvas; 
+        var graph; 
+        function installMouseHandler() {
+            var dragging = false; 
+            var startX, startY;    
+            var prevX, prevY; 
+            var colorChoice;  
+            var shapeChoice; 
+
+            function doMouseDown(evt) {
+                
+                if (dragging) {
+                    return;  
+                }
+                if (evt.button != 0) {
+                    return; 
+                }
+                var x,y;  
+                var r = canvas.getBoundingClientRect();
+                x = Math.round(evt.clientX - r.left);  
+                y = Math.round(evt.clientY - r.top);   
+                dragging = true; 
+                if (dragging) {
+                    startX = prevX = x;
+                    startY = prevY = y;
+                    document.addEventListener("mousemove", doMouseMove, false);
+                    document.addEventListener("mouseup", doMouseUp, false);
+                }
+                colorChoice = Number(document.getElementById("colorChoice").value);
+                shapeChoice = Number(document.getElementById("shapeChoice").value);
+              
+            }
+
+            function doMouseMove(evt) {
+                
+                if (!dragging) {
+                    return; 
+                }
+                var x,y;  
+                var r = canvas.getBoundingClientRect();
+                x = Math.round(evt.clientX - r.left);
+                y = Math.round(evt.clientY - r.top);
+
+               
+                if (shapeChoice == 0) {
+                    graph.fillRect(x-20,y-20,40,40);
+                    graph.strokeRect(x-20,y-20,40,40);
+                }
+                else if (shapeChoice == 1) {
+                    graph.beginPath();
+                    graph.arc(x,y,50,0,2*Math.PI,false);
+                    graph.fill();
+                    graph.closePath();
+                    graph.stroke();
+                }
+
+                if ( Math.abs(x-prevX) + Math.abs(y-prevY) < 3 ) {
+                    return; 
+                }
+             
+                 if (colorChoice == 1) {
+                    graph.fillStyle = "red";
+                }
+                else if (colorChoice == 2) {
+                    graph.fillStyle = "green";
+                }
+                else if (colorChoice == 3) {
+                    graph.fillStyle = "blue";
+                }
+                else if (colorChoice == 4) {
+                    graph.fillStyle = "Yellow";
+                }
+
+               
+
+                prevX = x;  
+                prevY = y;
+            }
+
+            function doMouseUp(evt) {
+                
+                if (!dragging) {
+                    return;  
+                }
+                dragging = false;
+                document.removeEventListener("mousemove", doMouseMove, false);
+                document.removeEventListener("mouseup", doMouseMove, false);
+            }
+
+            canvas.addEventListener("mousedown", doMouseDown, false);
+
+        } 
+        function init() {
+            canvas = document.getElementById("canvas");
+            graph = canvas.getContext("2d");
+            installMouseHandler();
+            graph.fillStyle = "white";
+            graph.fillRect(0,0,canvas.width,canvas.height);
+        }
+        function Clear_area(){
+            graph.clearRect(0,0,800,600)
+        }
+
+    </script>
+</head>
+<body onload="init()">
+<p><b>Color:</b>
+    <select id="colorChoice">
+        <option value="1">Red</option>
+        <option value="2">Green</option>
+        <option value="3">Blue</option>
+        <option value="4">Yellow</option>
+    </select>
+    <button onclick="Clear_area()">Clear area</button>
+    <b>Shape:</b>
+    <select id="shapeChoice">
+        <option value="0">Kwadrat</option>
+        <option value="1">Koło</option>
+    </select>
+</p>
+<div id="canvasholder">
+    <canvas id="canvas" width="640" height="480">
+    </canvas>
+</div>
+</body>
+</html>
